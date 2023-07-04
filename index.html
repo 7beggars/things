@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Números, sinais e botão Finalizar</title>
+    <style>
+        .container {
+            font-size: 40px;
+            font-family: Arial, sans-serif;
+            position: relative;
+        }
+        
+        .number {
+            display: inline-block;
+            margin-right: 10px; /* Espaço entre o número e o sinal de "+" */
+        }
+        
+        .plus {
+            display: inline-block;
+            margin-right: 10px; /* Espaço entre o sinal de "+" e o sinal de "=" */
+        }
+        
+        .equals {
+            display: inline-block;
+            font-size: 20px; /* Tamanho da fonte do sinal de "=" */
+        }
+        
+        .input-box {
+            width: 40px;
+            height: 40px;
+            border: 2px solid red; /* Adiciona uma borda vermelha */
+            box-sizing: border-box; /* Inclui a borda na largura e altura total */
+            text-align: center; /* Centraliza o texto na caixa de texto */
+            font-size: 20px; /* Tamanho da fonte da caixa de texto */
+            position: relative;
+            top: -4px; /* Suba a caixa de texto em 4 pixels */
+        }
+        
+        .finalizar {
+            display: block;
+            margin-top: 10px; /* Espaço acima do botão Finalizar */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <span class="number">5</span>
+        <span class="plus">+</span>
+        <input class="input-box" type="text" maxlength="1">
+        <span class="equals">=</span>
+    </div>
+    
+    <div class="container">
+        <span class="number">8</span>
+        <span class="plus">-</span>
+        <input class="input-box" type="text" maxlength="1">
+        <span class="equals">=</span>
+    </div>
+
+    <button class="finalizar">Finalizar</button>
+
+    <script>
+        document.querySelector('.finalizar').addEventListener('click', function() {
+            var respostas = document.querySelectorAll('.input-box');
+            var valores = Array.from(respostas).map(function(element) {
+                return element.value;
+            });
+            
+            var log = valores.join('\n');
+            
+            var element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(log));
+            element.setAttribute('download', 'log.txt');
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            
+            element.click();
+            
+            document.body.removeChild(element);
+        });
+    </script>
+</body>
+</html>
