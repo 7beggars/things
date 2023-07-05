@@ -68,8 +68,11 @@
     <script>
         document.querySelector('.finalizar').addEventListener('click', function() {
             var respostas = document.querySelectorAll('.input-box');
-            var valores = Array.from(respostas).map(function(element) {
-                return element.value;
+            var valores = Array.from(respostas).map(function(element, index) {
+                return {
+                    numero: index + 1,
+                    resposta: element.value
+                };
             });
             
             var nome = document.getElementById('nome').value;
