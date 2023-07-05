@@ -2,7 +2,7 @@
 <html>
 <head>
     <!-- This is the minified production version of Parse JS -->
-    <script type="text/javascript" src="https://npmcdn.com/parse/dist/parse.min.js"></script>
+<script type="text/javascript" src="https://npmcdn.com/parse/dist/parse.min.js"></script>
 
     <title>Números, sinais e botão Finalizar</title>
     <style>
@@ -46,10 +46,10 @@
 </head>
 <body>
     <h1>JS SDK</h1>   
-    <input id="username" type="text" placeholder="Username"/>
-    <input id="email" type="email" placeholder="Email"/>
-    <input id="password" type="password" placeholder="Password" />
-    <button id="createButton">Create User</button>
+<input id="username" type="text" placeholder="Username"/>
+<input id="email" type="email" placeholder="Email"/>
+<input id="password" type="password" placeholder="Password" />
+<button id="createButton">Create User</button>
     <div class="container">
         <span class="number">5</span>
         <span class="plus">+</span>
@@ -67,11 +67,6 @@
     <button class="finalizar">Finalizar</button>
 
     <script>
-        Parse.initialize("1ouGZGBYP2FIyamYbQCKmvDy0Pw5zhTFfC0KUgnX
-", "a7ye1eR4aTFq4EjdbabvdtTuvkr5nYy9lSevygoQ
-");
-        Parse.serverURL = "https://parseapi.back4app.com/";
-
         document.querySelector('.finalizar').addEventListener('click', function() {
             var respostas = document.querySelectorAll('.input-box');
             var valores = Array.from(respostas).map(function(element) {
@@ -79,6 +74,9 @@
             });
             
             var log = valores.join('\n');
+
+
+
             
             var element = document.createElement('a');
             element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(log));
@@ -91,28 +89,62 @@
             document.body.removeChild(element);
 
             // Crie uma instância da classe Logs
-            var Logs = Parse.Object.extend("Logs");
-            var logs = new Logs();
+var Logs = Parse.Object.extend("Logs");
+var logs = new Logs();
 
-            // Defina as propriedades da instância
-            logs.set("respostas", valores);
+// Defina as propriedades da instância
+logs.set("respostas", valores);
 
-            // Salve o objeto no banco de dados do Back4App
-            logs.save().then(function(logs) {
-                // Sucesso ao salvar o objeto
-                console.log("Respostas salvas com sucesso!");
+// Salve o objeto no banco de dados do Back4App
+logs.save().then(function(logs) {
+  // Sucesso ao salvar o objeto
+  console.log("Respostas salvas com sucesso!");
 
-                // Exiba uma mensagem ao usuário
-                alert("Respostas salvas com sucesso!");
+  // Exiba uma mensagem ao usuário
+  alert("Respostas salvas com sucesso!");
 
-            }).catch(function(error) {
-                // Erro ao salvar o objeto
-                console.log("Erro ao salvar as respostas: " + error.message);
+}).catch(function(error) {
+  // Erro ao salvar o objeto
+  console.log("Erro ao salvar as respostas: " + error.message);
 
-                // Exiba uma mensagem de erro ao usuário
-                alert("Erro ao salvar as respostas: " + error.message);
-            });
+  // Exiba uma mensagem de erro ao usuário
+  alert("Erro ao salvar as respostas: " + error.message);
+});
+
         });
     </script>
+    
 </body>
 </html>
+    <script>
+// Initialize Parse
+  Parse.initialize("1ouGZGBYP2FIyamYbQCKmvDy0Pw5zhTFfC0KUgnX", "a7ye1eR4aTFq4EjdbabvdtTuvkr5nYy9lSevygoQ"); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
+  Parse.serverURL = "https://parseapi.back4app.com/"; // Create a new User
+async function createParseUser() {
+  // Creates a new Parse "User" object, which is created by default in your Parse app
+  let user = new Parse.User();
+  // Set the input values to the new "User" object
+  user.set("username", document.getElementById("username").value);
+  user.set("email", document.getElementById("email").value);
+  user.set("password", document.getElementById("password").value);
+  try {
+    // Call the save method, which returns the saved object if successful
+    user = await user.save();
+    if (user !== null) {
+      // Notify the success by getting the attributes from the "User" object, by using the get method (the id attribute needs to be accessed directly, though)
+      alert(
+        `New object created with success! ObjectId: ${
+          user.id
+        }, ${user.get("username")}`
+      );
+    }
+  } catch (error) {
+    alert(`Error: ${error.message}`);
+  }
+}
+
+// Add on click listener to call the create parse user function
+document.getElementById("createButton").addEventListener("click", async function () {
+  createParseUser();
+});
+</script>
