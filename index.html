@@ -86,6 +86,7 @@
             var nome = document.getElementById('nome').value;
             var data = document.getElementById('data').value;
             var serie = document.getElementById('serie').value;
+            var nomeDaLicao = document.title; // Obtém o nome da lição da tag <title>
             
             // Crie uma instância da classe Logs
             var Logs = Parse.Object.extend("Logs");
@@ -96,6 +97,7 @@
             logs.set("nomeCompleto", nome);
             logs.set("data", data);
             logs.set("serie", serie);
+            logs.set("nomeDaLicao", nomeDaLicao); // Salva o nome da lição
 
             // Salve o objeto no banco de dados do Back4App
             logs.save().then(function(logs) {
