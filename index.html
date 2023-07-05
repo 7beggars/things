@@ -38,12 +38,18 @@
             top: -4px; /* Suba a caixa de texto em 4 pixels */
         }
         
-        .fraction-line {
-            display: block;
+        .fraction {
             position: relative;
-            top: -10px; /* Ajuste a posição da linha horizontal */
-            border-top: 2px solid black; /* Adicione a linha horizontal */
+            display: inline-block;
+        }
+        
+        .fraction-line {
+            position: absolute;
             width: 100%;
+            height: 2px;
+            background-color: black;
+            top: 50%;
+            transform: translateY(-50%);
         }
         
         .finalizar {
@@ -60,23 +66,38 @@
     <div class="container">
         <span class="number">5</span>
         <span class="plus">+</span>
-        <input class="input-box" type="text" maxlength="1">
+        <div class="fraction">
+            <input class="input-box" type="text" maxlength="1">
+            <div class="fraction-line"></div>
+            <input class="input-box" type="text" maxlength="1">
+        </div>
         <span class="equals">=</span>
     </div>
     
     <div class="container">
         <span class="number">8</span>
         <span class="plus">-</span>
-        <input class="input-box" type="text" maxlength="1">
+        <div class="fraction">
+            <input class="input-box" type="text" maxlength="1">
+            <div class="fraction-line"></div>
+            <input class="input-box" type="text" maxlength="1">
+        </div>
         <span class="equals">=</span>
     </div>
     
     <div class="container">
-        <span class="number">5</span>
+        <div class="fraction">
+            <span class="number">5</span>
+            <div class="fraction-line"></div>
+            <span class="number">7</span>
+        </div>
         <span class="plus">-</span>
-        <span class="input-value">7</span>
-        <span class="fraction-line"></span> <!-- Linha horizontal -->
-        <input class="input-box" type="text" maxlength="1">
+        <div class="fraction">
+            <input class="input-box" type="text" maxlength="1">
+            <div class="fraction-line"></div>
+            <input class="input-box" type="text" maxlength="1">
+        </div>
+        <span class="equals">=</span>
     </div>
 
     <button class="finalizar">Finalizar</button>
