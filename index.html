@@ -112,6 +112,11 @@
                 inputValue += '/';
                 this.value = inputValue;
             }
+
+            if (inputLength >= 10) {
+                // Limita a quantidade de dígitos após a segunda e última barra
+                this.value = inputValue.substring(0, 10);
+            }
         });
     </script>
     
