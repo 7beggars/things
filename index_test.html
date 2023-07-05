@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- This is the minified production version of Parse JS -->
+    <script type="text/javascript" src="https://npmcdn.com/parse/dist/parse.min.js"></script>
+
+    <title>Números, sinais e botão Finalizar</title>
+    <style>
+        .container {
+            font-size: 40px;
+            font-family: Arial, sans-serif;
+            position: relative;
+        }
+        
+        .number {
+            display: inline-block;
+            margin-right: 10px; /* Espaço entre o número e o sinal de "+" */
+        }
+        
+        .plus {
+            display: inline-block;
+            margin-right: 10px; /* Espaço entre o sinal de "+" e o sinal de "=" */
+        }
+        
+        .equals {
+            display: inline-block;
+            font-size: 20px; /* Tamanho da fonte do sinal de "=" */
+        }
+        
+        .input-box {
+            width: 40px;
+            height: 40px;
+            border: 2px solid red; /* Adiciona uma borda vermelha */
+            box-sizing: border-box; /* Inclui a borda na largura e altura total */
+            text-align: center; /* Centraliza o texto na caixa de texto */
+            font-size: 20px; /* Tamanho da fonte da caixa de texto */
+            position: relative;
+            top: -4px; /* Suba a caixa de texto em 4 pixels */
+        }
+        
+        .finalizar {
+            display: block;
+            margin-top: 10px; /* Espaço acima do botão Finalizar */
+        }
+    </style>
+</head>
+<body>
+    <h1>JS SDK</h1>   
+    <input id="username" type="text" placeholder="Username"/>
+    <input id="email" type="email" placeholder="Email"/>
+    <input id="password" type="password" placeholder="Password" />
+    <button id="createButton">Create User</button>
+    <div class="container">
+        <span class="number">5</span>
+        <span class="plus">+</span>
+        <input class="input-box" type="text" maxlength="1">
+        <span class="equals">=</span>
+    </div>
+    
+    <div class="container">
+        <span class="number">8</span>
+        <span class="plus">-</span>
+        <input class="input-box" type="text" maxlength="1">
+        <span class="equals">=</span>
+    </div>
+
+    <button class="finalizar">Finalizar</button>
+
+    <script>
+        Parse.initialize("1ouGZGBYP2FIyamYbQCKmvDy0Pw5zhTFfC0KUgnX
+", "a7ye1eR4aTFq4EjdbabvdtTuvkr5nYy9lSevygoQ
+");
+        Parse.serverURL = "https://parseapi.back4app.com/";
+
+        document.querySelector('.finalizar').addEventListener('click', function() {
+            var respostas = document.querySelectorAll('.input-box');
+            var valores = Array.from(respostas).map(function(element) {
+                return element.value;
+            });
+            
+            var log = valores.join('\n');
+            
+            var element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(log));
+            element.setAttribute('download', 'log.txt');
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            
+            element.click();
+            
+            document.body.removeChild(element);
+
+            // Crie uma instância da classe Logs
+            var Logs = Parse.Object.extend("Logs");
+            var logs = new Logs();
+
+            // Defina as propriedades da instância
+            logs.set("respostas", valores);
+
+            // Salve o objeto no banco de dados do Back4App
+            logs.save().then(function(logs) {
+                // Sucesso ao salvar o objeto
+                console.log("Respostas salvas com sucesso!");
+
+                // Exiba uma mensagem ao usuário
+                alert("Respostas salvas com sucesso!");
+
+            }).catch(function(error) {
+                // Erro ao salvar o objeto
+                console.log("Erro ao salvar as respostas: " + error.message);
+
+                // Exiba uma mensagem de erro ao usuário
+                alert("Erro ao salvar as respostas: " + error.message);
+            });
+        });
+    </script>
+</body>
+</html>
