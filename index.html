@@ -45,11 +45,7 @@
     </style>
 </head>
 <body>
-    <h1>JS SDK</h1>   
-<input id="username" type="text" placeholder="Username"/>
-<input id="email" type="email" placeholder="Email"/>
-<input id="password" type="password" placeholder="Password" />
-<button id="createButton">Create User</button>
+    
     <div class="container">
         <span class="number">5</span>
         <span class="plus">+</span>
@@ -86,9 +82,13 @@
             document.body.removeChild(element);
         });
     </script>
+    <h1>JS SDK</h1>   
+<input id="username" type="text" placeholder="Username"/>
+<input id="email" type="email" placeholder="Email"/>
+<input id="password" type="password" placeholder="Password" />
+<button id="createButton">Create User</button>
 </body>
-</html>
-<script>
+    <script>
 // Initialize Parse
   Parse.initialize("1ouGZGBYP2FIyamYbQCKmvDy0Pw5zhTFfC0KUgnX", "a7ye1eR4aTFq4EjdbabvdtTuvkr5nYy9lSevygoQ"); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
   Parse.serverURL = "https://parseapi.back4app.com/"; // Create a new User
@@ -120,3 +120,5 @@ document.getElementById("createButton").addEventListener("click", async function
   createParseUser();
 });
 </script>
+</html>
+
