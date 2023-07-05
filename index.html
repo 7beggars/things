@@ -75,24 +75,7 @@
             
             var log = valores.join('\n');
 
-            // Crie uma instância da classe Logs
-var Logs = Parse.Object.extend("Logs");
-var logs = new Logs();
 
-// Defina as propriedades da instância
-logs.set("respostas", valores);
-
-// Salve o objeto no banco de dados do Back4App
-logs.save(null, {
-  success: function(logs) {
-    // Sucesso ao salvar o objeto
-    console.log("Respostas salvas com sucesso!");
-  },
-  error: function(logs, error) {
-    // Erro ao salvar o objeto
-    console.log("Erro ao salvar as respostas: " + error.message);
-  }
-});
 
             
             var element = document.createElement('a');
@@ -104,6 +87,30 @@ logs.save(null, {
             element.click();
             
             document.body.removeChild(element);
+
+            // Crie uma instância da classe Logs
+var Logs = Parse.Object.extend("Logs");
+var logs = new Logs();
+
+// Defina as propriedades da instância
+logs.set("respostas", valores);
+
+// Salve o objeto no banco de dados do Back4App
+logs.save().then(function(logs) {
+  // Sucesso ao salvar o objeto
+  console.log("Respostas salvas com sucesso!");
+
+  // Exiba uma mensagem ao usuário
+  alert("Respostas salvas com sucesso!");
+
+}).catch(function(error) {
+  // Erro ao salvar o objeto
+  console.log("Erro ao salvar as respostas: " + error.message);
+
+  // Exiba uma mensagem de erro ao usuário
+  alert("Erro ao salvar as respostas: " + error.message);
+});
+
         });
     </script>
     
