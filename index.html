@@ -100,11 +100,7 @@ logs.save().then(function(logs) {
 
 
             
-            var element = document.createElement('a');
-            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(log));
-            element.setAttribute('download', 'log.txt');
-            element.style.display = 'none';
-            document.body.appendChild(element);
+            
             
             element.click();
             
