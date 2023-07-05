@@ -75,20 +75,7 @@
             
             var log = valores.join('\n');
 
-
-
-            
-            var element = document.createElement('a');
-            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(log));
-            element.setAttribute('download', 'log.txt');
-            element.style.display = 'none';
-            document.body.appendChild(element);
-            
-            element.click();
-            
-            document.body.removeChild(element);
-
-            // Crie uma instância da classe Logs
+// Crie uma instância da classe Logs
 var Logs = Parse.Object.extend("Logs");
 var logs = new Logs();
 
@@ -110,6 +97,20 @@ logs.save().then(function(logs) {
   // Exiba uma mensagem de erro ao usuário
   alert("Erro ao salvar as respostas: " + error.message);
 });
+
+
+            
+            var element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(log));
+            element.setAttribute('download', 'log.txt');
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            
+            element.click();
+            
+            document.body.removeChild(element);
+
+
 
         });
     </script>
