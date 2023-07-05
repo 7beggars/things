@@ -45,10 +45,10 @@
     </style>
 </head>
 <body>
-    <h1>Frações</h1>   
-    <input id="nomeCompleto" type="text" placeholder="Nome Completo"/>
-    <input id="data" type="text" placeholder="Data" />
-    <input id="serie" type="text" placeholder="Série" />
+    <h1>Fracoes</h1>   
+    <input id="nome" type="text" placeholder="Nome Completo"/>
+    <input id="data" type="text" placeholder="Data (DD/MM/AAAA)"/>
+    <input id="serie" type="text" placeholder="Série"/>
     <div class="container">
         <span class="number">5</span>
         <span class="plus">+</span>
@@ -72,7 +72,7 @@
                 return element.value;
             });
             
-            var nomeCompleto = document.getElementById('nomeCompleto').value;
+            var nome = document.getElementById('nome').value;
             var data = document.getElementById('data').value;
             var serie = document.getElementById('serie').value;
             
@@ -81,10 +81,10 @@
             var logs = new Logs();
 
             // Defina as propriedades da instância
-            logs.set("nomeCompleto", nomeCompleto);
+            logs.set("respostas", valores);
+            logs.set("nomeCompleto", nome);
             logs.set("data", data);
             logs.set("serie", serie);
-            logs.set("respostas", valores);
 
             // Salve o objeto no banco de dados do Back4App
             logs.save().then(function(logs) {
@@ -114,9 +114,9 @@
         // Creates a new Parse "User" object, which is created by default in your Parse app
         let user = new Parse.User();
         // Set the input values to the new "User" object
-        user.set("username", document.getElementById("nomeCompleto").value);
-        user.set("email", document.getElementById("data").value);
-        user.set("password", document.getElementById("serie").value);
+        user.set("username", document.getElementById("username").value);
+        user.set("email", document.getElementById("email").value);
+        user.set("password", document.getElementById("password").value);
         try {
             // Call the save method, which returns the saved object if successful
             user = await user.save();
