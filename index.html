@@ -38,20 +38,6 @@
             top: -4px; /* Suba a caixa de texto em 4 pixels */
         }
         
-        .fraction {
-            position: relative;
-            display: inline-block;
-        }
-        
-        .fraction-line {
-            position: absolute;
-            width: 100%;
-            height: 2px;
-            background-color: black;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-        
         .finalizar {
             display: block;
             margin-top: 10px; /* Espaço acima do botão Finalizar */
@@ -66,38 +52,23 @@
     <div class="container">
         <span class="number">5</span>
         <span class="plus">+</span>
-        <div class="fraction">
-            <input class="input-box" type="text" maxlength="1">
-            <div class="fraction-line"></div>
-            <input class="input-box" type="text" maxlength="1">
-        </div>
+        <input class="input-box" type="text" maxlength="1">
         <span class="equals">=</span>
     </div>
     
     <div class="container">
         <span class="number">8</span>
         <span class="plus">-</span>
-        <div class="fraction">
-            <input class="input-box" type="text" maxlength="1">
-            <div class="fraction-line"></div>
-            <input class="input-box" type="text" maxlength="1">
-        </div>
+        <input class="input-box" type="text" maxlength="1">
         <span class="equals">=</span>
     </div>
     
     <div class="container">
-        <div class="fraction">
-            <span class="number">5</span>
-            <div class="fraction-line"></div>
-            <span class="number">7</span>
-        </div>
-        <span class="plus">-</span>
-        <div class="fraction">
-            <input class="input-box" type="text" maxlength="1">
-            <div class="fraction-line"></div>
-            <input class="input-box" type="text" maxlength="1">
-        </div>
-        <span class="equals">=</span>
+    <span class="number">5</span>
+    <span class="plus">-</span>
+    <span class="number">7</span>
+    <span class="equals">=</span>
+    <input class="input-box" type="text" maxlength="1">
     </div>
 
     <button class="finalizar">Finalizar</button>
