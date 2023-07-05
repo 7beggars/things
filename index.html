@@ -38,6 +38,14 @@
             top: -4px; /* Suba a caixa de texto em 4 pixels */
         }
         
+        .fraction-line {
+            display: block;
+            position: relative;
+            top: -10px; /* Ajuste a posição da linha horizontal */
+            border-top: 2px solid black; /* Adicione a linha horizontal */
+            width: 100%;
+        }
+        
         .finalizar {
             display: block;
             margin-top: 10px; /* Espaço acima do botão Finalizar */
@@ -67,18 +75,7 @@
         <span class="number">5</span>
         <span class="plus">-</span>
         <span class="input-value">7</span>
-        <span class="equals">=</span>
-        <input class="input-box" type="text" maxlength="1">
-    </div>
-    
-    <div class="container">
-        <span class="number">1</span>
-        <span class="plus">-</span>
-        <div class="fraction">
-            <div class="numerator">4</div>
-            <div class="denominator">6</div>
-        </div>
-        <span class="equals">=</span>
+        <span class="fraction-line"></span> <!-- Linha horizontal -->
         <input class="input-box" type="text" maxlength="1">
     </div>
 
