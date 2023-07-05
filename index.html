@@ -45,7 +45,7 @@
     </style>
 </head>
 <body>
-    <h1>Fracoes</h1>   
+    <h1>Frações</h1>   
     <input id="nome" type="text" placeholder="Nome Completo"/>
     <input id="data" type="text" placeholder="Data (DD/MM/AAAA)"/>
     <input id="serie" type="text" placeholder="Série"/>
@@ -101,6 +101,17 @@
                 // Exiba uma mensagem de erro ao usuário
                 alert("Erro ao salvar as respostas: " + error.message);
             });
+        });
+        
+        // Auto completar a barra no campo de data
+        document.getElementById('data').addEventListener('input', function() {
+            var inputValue = this.value;
+            var inputLength = inputValue.length;
+            
+            if (inputLength === 2 || inputLength === 5) {
+                inputValue += '/';
+                this.value = inputValue;
+            }
         });
     </script>
     
