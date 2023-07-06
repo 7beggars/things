@@ -4,7 +4,7 @@
     <!-- This is the minified production version of Parse JS -->
     <script type="text/javascript" src="https://npmcdn.com/parse/dist/parse.min.js"></script>
 
-    <title>Números, sinais e botão Finalizar</title>
+    <title>Frações</title>
     <style>
         .container {
             font-size: 40px;
@@ -20,6 +20,13 @@
         .plus {
             display: inline-block;
             margin-right: 10px; /* Espaço entre o sinal de "+" e o sinal de "=" */
+        }
+        
+        .divide {
+            display: inline-block;
+            margin-right: 10px; /* Espaço entre o sinal de "+" e o sinal de "=" */
+            position: relative;
+            top: 6px; /* Ajuste vertical para alinhar a chave de divisão */
         }
         
         .equals {
@@ -42,14 +49,27 @@
             display: block;
             margin-top: 10px; /* Espaço acima do botão Finalizar */
         }
+        
+        .fraction {
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .fraction .numerator {
+            display: block;
+        }
+        
+        .fraction .denominator {
+            display: block;
+            border-top: 2px solid;
+        }
     </style>
 </head>
 <body>
-    <h1>JS SDK</h1>   
-    <input id="username" type="text" placeholder="Username"/>
-    <input id="email" type="email" placeholder="Email"/>
-    <input id="password" type="password" placeholder="Password" />
-    <button id="createButton">Create User</button>
+    <h1>Turma 5º A</h1>   
+    <input id="nome" type="text" placeholder="Nome Completo"/>
+    <input id="data" type="text" placeholder="Data (DD/MM/AAAA)"/>
+    <input id="serie" type="text" placeholder="Série"/>
     <div class="container">
         <span class="number">5</span>
         <span class="plus">+</span>
@@ -63,39 +83,66 @@
         <input class="input-box" type="text" maxlength="1">
         <span class="equals">=</span>
     </div>
+    
+    <div class="container">
+        <span class="number">5</span>
+        <span class="plus">-</span>
+        <span class="input-value">7</span>
+        <span class="equals">=</span>
+        <input class="input-box"type="text" maxlength="1">
+    </div>
+    
+    <div class="container">
+        <div class="fraction">
+            <span class="numerator">1</span>
+            <span class="denominator">8</span>
+        </div>
+        <span class="plus">+</span>
+        <div class="fraction">
+            <span class="numerator">5</span>
+            <span class="denominator">7</span>
+        </div>
+        <span class="equals">=</span>
+        <input class="input-box" type="text" maxlength="1">
+    </div>
+
+    <div class="container">
+        <div class="fraction">
+            <span class="numerator">9</span>
+            <span class="denominator">5</span>
+        </div>
+        <span class="divide">÷</span>
+        <input class="input-box" type="text" maxlength="1">
+        <span class="equals">=</span>
+    </div>
 
     <button class="finalizar">Finalizar</button>
 
     <script>
-        Parse.initialize("1ouGZGBYP2FIyamYbQCKmvDy0Pw5zhTFfC0KUgnX
-", "a7ye1eR4aTFq4EjdbabvdtTuvkr5nYy9lSevygoQ
-");
-        Parse.serverURL = "https://parseapi.back4app.com/";
-
         document.querySelector('.finalizar').addEventListener('click', function() {
             var respostas = document.querySelectorAll('.input-box');
-            var valores = Array.from(respostas).map(function(element) {
-                return element.value;
+            var valores = Array.from(respostas).map(function(element, index) {
+                return {
+                    numero: index + 1,
+                    resposta: element.value
+                };
             });
             
-            var log = valores.join('\n');
+            var nome = document.getElementById('nome').value;
+            var data = document.getElementById('data').value;
+            var serie = document.getElementById('serie').value;
+            var nomeDaLicao = document.title; // Obtém o nome da lição da tag <title>
             
-            var element = document.createElement('a');
-            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(log));
-            element.setAttribute('download', 'log.txt');
-            element.style.display = 'none';
-            document.body.appendChild(element);
-            
-            element.click();
-            
-            document.body.removeChild(element);
-
             // Crie uma instância da classe Logs
             var Logs = Parse.Object.extend("Logs");
             var logs = new Logs();
 
             // Defina as propriedades da instância
             logs.set("respostas", valores);
+            logs.set("nomeCompleto", nome);
+            logs.set("data", data);
+            logs.set("serie", serie);
+            logs.set("nomeDaLicao", nomeDaLicao); // Salva o nome da lição
 
             // Salve o objeto no banco de dados do Back4App
             logs.save().then(function(logs) {
@@ -112,6 +159,22 @@
                 // Exiba uma mensagem de erro ao usuário
                 alert("Erro ao salvar as respostas: " + error.message);
             });
+        });
+        
+        // Auto completar a barra no campo de data
+        document.getElementById('data').addEventListener('input', function() {
+            var inputValue = this.value;
+            var inputLength = inputValue.length;
+            
+            if (inputLength === 2 || inputLength === 5) {
+                inputValue += '/';
+                this.value = inputValue;
+            }
+
+            if (inputLength >= 10) {
+                // Limita a quantidade de dígitos após a segunda e última barra
+                this.value = inputValue.substring(0, 10);
+            }
         });
     </script>
 </body>
