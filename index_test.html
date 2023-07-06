@@ -26,7 +26,7 @@
             display: inline-block;
             margin-right: 10px; /* Espaço entre o sinal de "+" e o sinal de "=" */
             position: relative;
-            top: 6px; /* Ajuste vertical para alinhar a chave de divisão */
+            top: 2px; /* Ajuste vertical para alinhar a chave de divisão */
         }
         
         .equals {
@@ -53,6 +53,7 @@
         .fraction {
             display: inline-block;
             text-align: center;
+            vertical-align: middle; /* Alinha verticalmente ao centro */
         }
         
         .fraction .numerator {
@@ -109,7 +110,7 @@
     <div class="container">
         <div class="fraction">
             <span class="numerator">9</span>
-            <span class="denominator">5</span>
+            
         </div>
         <span class="divide">÷</span>
         <input class="input-box" type="text" maxlength="1">
