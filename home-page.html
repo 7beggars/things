@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Minha Homepage</title>
+  <style>
+    .button {
+      display: block;
+      width: 200px;
+      height: 100px;
+      margin: 10px auto;
+      font-size: 24px;
+      text-align: center;
+      line-height: 100px;
+      background-color: #4CAF50;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    
+    .button:hover {
+      background-color: #45a049;
+    }
+    
+    .column {
+      float: left;
+      width: 50%;
+      padding: 10px;
+    }
+    
+    /* Limpar floats após as colunas */
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  </style>
+</head>
+<body>
+  <div class="row">
+    <div class="column">
+      <a href="port-jogo.html" class="button">PORT</a>
+      <a href="hg-jogo.html" class="button">HG</a>
+    </div>
+    <div class="column">
+      <a href="cien-jogo.html" class="button">CIEN</a>
+      <a href="mat-jogo.html" class="button">MAT</a>
+    </div>
+
+    </div>
+  </div>
+</body>
+</html>
