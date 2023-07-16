@@ -1,201 +1,134 @@
+
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <!-- This is the minified production version of Parse JS -->
-    <script type="text/javascript" src="https://npmcdn.com/parse/dist/parse.min.js"></script>
+<title></title>
 
-    <title>Frações</title>
-    <style>
-        .container {
-            font-size: 40px;
-            font-family: Arial, sans-serif;
-            position: relative;
-        }
-        
-        .number {
-            display: inline-block;
-            margin-right: 10px; /* Espaço entre o número e o sinal de "+" */
-            vertical-align: middle; /* Alinha verticalmente ao centro */
-        }
-        
-        .plus {
-            display: inline-block;
-            margin-right: 10px; /* Espaço entre o sinal de "+" e o sinal de "=" */
-            vertical-align: middle; /* Alinha verticalmente ao centro */
-        }
-        
-        .equals {
-            display: inline-block;
-            font-size: 20px; /* Tamanho da fonte do sinal de "=" */
-            vertical-align: middle; /* Alinha verticalmente ao centro */
-        }
-        
-        .input-box {
-            width: 40px;
-            height: 40px;
-            border: 2px solid red; /* Adiciona uma borda vermelha */
-            box-sizing: border-box; /* Inclui a borda na largura e altura total */
-            text-align: center; /* Centraliza o texto na caixa de texto */
-            font-size: 20px; /* Tamanho da fonte da caixa de texto */
-            position: relative;
-            top: -4px; /* Suba a caixa de texto em 4 pixels */
-            vertical-align: middle; /* Alinha verticalmente ao centro */
-        }
-        
-        .finalizar {
-            display: block;
-            margin-top: 10px; /* Espaço acima do botão Finalizar */
-        }
-        
-        .fraction {
-            display: inline-block;
-            text-align: center;
-            vertical-align: middle; /* Alinha verticalmente ao centro */
-        }
-        
-        .fraction .numerator {
-            display: block;
-        }
-        
-        .fraction .denominator {
-            display: block;
-            border-top: 2px solid;
-        }
-    </style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 </head>
+
+<style>
+
+body {
+
+	background-image: url('grunge_patterns.jpg');
+	background-attachment: fixed;
+	color: #333;
+}
+
+.box {
+	border-radius: 3px;
+	background: rgba(101, 101, 101, 0.7); margin: auto; padding: 12px;
+}
+
+.lightbox {
+	zoom: 1.5;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(10, 10, 10, 0.8);
+	text-align: center;
+	margin: auto;
+
+}
+
+div.horizontal {
+	display: flex;
+	justify-content: center;
+	height: 100%;
+}
+
+div.vertical {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 100%;
+}
+
+::-webkit-input-placeholder {
+   color: #955;
+   text-align: center;
+}
+
+::-moz-placeholder {
+   color: #955;
+   text-align: center;
+}
+
+:-ms-input-placeholder {
+   color: #955;
+   text-align: center;
+}
+
+</style>
+
 <body>
-    <h1>Turma 5º A</h1>   
-    <input id="nome" type="text" placeholder="Nome Completo"/>
-    <input id="data" type="text" placeholder="Data (DD/MM/AAAA)"/>
-    <input id="serie" type="text" placeholder="Série"/>
-    <div class="container">
-        <span class="number">5</span>
-        <span class="plus">+</span>
-        <input class="input-box" type="text" maxlength="1">
-        <span class="equals">=</span>
-    </div>
-    
-    <div class="container">
-        <span class="number">8</span>
-        <span class="plus">-</span>
-        <input class="input-box" type="text" maxlength="1">
-        <span class="equals">=</span>
-    </div>
-    
-    <div class="container">
-        <span class="number">5</span>
-        <span class="plus">-</span>
-        <span class="input-value">7</span>
-        <span class="equals">=</span>
-        <input class="input-box" type="text" maxlength="1">
-    </div>
-    
-    <div class="container">
-        <div class="fraction">
-            <span class="numerator">1</span>
-            <span class="denominator">8</span>
-        </div>
-        <span class="plus">+</span>
-        <div class="fraction">
-            <span class="numerator">5</span>
-            <span class="denominator">7</span>
-        </div>
-        <span class="equals">=</span>
-        <input class="input-box" type="text" maxlength="1">
-    </div>
 
-    <button class="finalizar">Finalizar</button>
+	<div id="loginbox" class="lightbox" >
+		<div class="horizontal">
+			<div class="vertical">
+				<div class="box">
+					<input style="margin: 16px; text-align: center;" id="password" type="password" placeholder="password" /> <br />
+					<button id="loginbutton" type="button">Enter</button>
+					<p id="wrongPassword" style="display: none">wrong password</p>
+				</div>
+			</div>
+		</div>
+	</div>
 
-    <script>
-        document.querySelector('.finalizar').addEventListener('click', function() {
-            var respostas = document.querySelectorAll('.input-box');
-            var valores = Array.from(respostas).map(function(element, index) {
-                return {
-                    numero: index + 1,
-                    resposta: element.value
-                };
-            });
-            
-            var nome = document.getElementById('nome').value;
-            var data = document.getElementById('data').value;
-            var serie = document.getElementById('serie').value;
-            var nomeDaLicao = document.title; // Obtém o nome da lição da tag <title>
-            
-            // Crie uma instância da classe Logs
-            var Logs = Parse.Object.extend("Logs");
-            var logs = new Logs();
 
-            // Defina as propriedades da instância
-            logs.set("respostas", valores);
-            logs.set("nomeCompleto", nome);
-            logs.set("data", data);
-            logs.set("serie", serie);
-            logs.set("nomeDaLicao", nomeDaLicao); // Salva o nome da lição
 
-            // Salve o objeto no banco de dados do Back4App
-            logs.save().then(function(logs) {
-                // Sucesso ao salvar o objeto
-                console.log("Respostas salvas com sucesso!");
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 
-                // Exiba uma mensagem ao usuário
-                alert("Respostas salvas com sucesso!");
 
-            }).catch(function(error) {
-                // Erro ao salvar o objeto
-                console.log("Erro ao salvar as respostas: " + error.message);
+	 <script type="text/javascript" src="https://rawcdn.githack.com/chrisveness/crypto/7067ee62f18c76dd4a9d372a00e647205460b62b/sha1.js"></script>
 
-                // Exiba uma mensagem de erro ao usuário
-                alert("Erro ao salvar as respostas: " + error.message);
-            });
-        });
-        
-        // Auto completar a barra no campo de data
-        document.getElementById('data').addEventListener('input', function() {
-            var inputValue = this.value;
-            var inputLength = inputValue.length;
-            
-            if (inputLength === 2 || inputLength === 5) {
-                inputValue += '/';
-                this.value = inputValue;
-            }
+	<script type="text/javascript">
+	"use strict";
 
-            if (inputLength >= 10) {
-                // Limita a quantidade de dígitos após a segunda e última barra
-                this.value = inputValue.substring(0, 10);
-            }
-        });
-    </script>
+
+	function loadPage(pwd) {
+
+		var hash= pwd;
+		hash= Sha1.hash(pwd);
+		var url= hash + "/index.html";
+
+		$.ajax({
+			url : url,
+			dataType : "html",
+			success : function(data) {
+
+				window.location= url;
+
+			},
+			error : function(xhr, ajaxOptions, thrownError) {
+
+
+				parent.location.hash= hash;
+
+				//$("#wrongPassword").show();
+				$("#password").attr("placeholder","wrong password");
+				$("#password").val("");
+			}
+		});
+	}
+
+
+	$("#loginbutton").on("click", function() {
+		loadPage($("#password").val());
+	});
+	$("#password").keypress(function(e) {
+		if (e.which == 13) {
+
+			loadPage($("#password").val());
+		}
+	});
+	$("#password").focus();
+
+	</script>
+
 </body>
 </html>
-<script>
-    // Initialize Parse
-    Parse.initialize("1ouGZGBYP2FIyamYbQCKmvDy0Pw5zhTFfC0KUgnX", "a7ye1eR4aTFq4EjdbabvdtTuvkr5nYy9lSevygoQ"); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
-    Parse.serverURL = "https://parseapi.back4app.com/"; // Create a new User
-    async function createParseUser() {
-        // Creates a new Parse "User" object, which is created by default in your Parse app
-        let user = new Parse.User();
-        // Set the input values to the new "User" object
-        user.set("username", document.getElementById("username").value);
-        user.set("email", document.getElementById("email").value);
-        user.set("password", document.getElementById("password").value);
-        try {
-            // Call the save method, which returns the saved object if successful
-            user = await user.save();
-            if (user !== null) {
-                // Notify the success by getting the attributes from the "User" object, by using the get method (the id attribute needs to be accessed directly, though)
-                alert(
-                    `New object created with success! ObjectId: ${
-                        user.id
-                    }, ${user.get("username")}`
-                );
-            }
-        } catch (error) {
-            alert(`Error: ${error.message}`);
-        }
-    }
-
-    // Add on click listener to call the create parse user function
-    document.getElementById("createButton").addEventListener("click", async function () {
-        createParseUser();
-    });
-</script>
